@@ -16,6 +16,10 @@ const socketIO = require('socket.io')(http, {
 
 socketIO.on('connection', (socket) => {
     console.log(`⚡: ${socket.id} user just connected!`);
+
+    socket.on('send_message', (data) => {
+      socket.emit('receive_message', data)
+    })
     socket.on('disconnect', () => {
       console.log('🔥: A user disconnected');
     });
