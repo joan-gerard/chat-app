@@ -1,7 +1,13 @@
 import React, { useState } from "react";
+import { Socket } from "socket.io-client";
+
 import { useNavigate } from "react-router-dom";
 
-const Home: React.FC<HomeProps> = ({ socket }) => {
+type SocketProp = {
+  socket: Socket;
+};
+
+const Home: React.FC<SocketProp> = ({ socket }) => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
 

@@ -1,6 +1,11 @@
 import React, { useState } from "react";
+import { Socket } from "socket.io-client";
 
-const ChatFooter = () => {
+type SocketProp = {
+  socket: Socket;
+};
+
+const ChatFooter: React.FC<SocketProp> = ({ socket }) => {
   const [message, setMessage] = useState("");
 
   const handleSendMessage = (e: React.FormEvent<HTMLFormElement>) => {

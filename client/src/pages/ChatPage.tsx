@@ -1,18 +1,24 @@
-import React from 'react';
-import ChatBar from '../components/ChatBar';
-import ChatBody from '../components/ChatBody';
-import ChatFooter from '../components/ChatFooter';
+import React from "react";
+import { Socket } from "socket.io-client";
+
+import ChatBar from "../components/ChatBar";
+import ChatBody from "../components/ChatBody";
+import ChatFooter from "../components/ChatFooter";
 // import ChatBar from './ChatBar';
 // import ChatBody from './ChatBody';
 // import ChatFooter from './ChatFooter';
 
-const ChatPage: React.FC<ChatPageProps> = ({ socket }) => {
+type SocketProp = {
+  socket: Socket;
+};
+
+const ChatPage: React.FC<SocketProp> = ({ socket }) => {
   return (
     <div className="chat">
       <ChatBar />
       <div className="chat__main">
         <ChatBody />
-        <ChatFooter />
+        <ChatFooter socket={socket} />
       </div>
     </div>
   );

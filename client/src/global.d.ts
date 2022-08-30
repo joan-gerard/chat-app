@@ -1,6 +1,3 @@
-type HomeProps = {
-  socket: any;
-};
-type ChatPageProps = {
-  socket: any;
-};
+// interface Socket {
+//   socket: any;
+// }
