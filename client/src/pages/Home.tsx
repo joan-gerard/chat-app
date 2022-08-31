@@ -14,6 +14,7 @@ const Home: React.FC<SocketProp> = ({ socket }) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     localStorage.setItem("userName", userName);
+    socket.emit('send_newUser', {userName, socketID: socket.id})
     navigate("/chat");
   };
   return (

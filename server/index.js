@@ -1,35 +1,54 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 const PORT = 4000;
 
-const http = require('http').Server(app);
-const cors = require('cors');
+const http = require("http").Server(app);
+const cors = require("cors");
 
 app.use(cors());
 
 //--- socket.io START ---//
-const socketIO = require('socket.io')(http, {
-    cors: {
-        origin: "http://localhost:3000"
-    }
+const socketIO = require("socket.io")(http, {
+  cors: {
+    origin: "http://localhost:3000",
+  },
 });
 
-socketIO.on('connection', (socket) => {
-    console.log(`⚡: ${socket.id} user just connected!`);
+let users = [];
 
-    socket.on('send_message', (data) => {
-      socket.emit('receive_message', data)
-    })
-    socket.on('disconnect', () => {
-      console.log('🔥: A user disconnected');
+socketIO.on("connection", (socket) => {
+  console.log(`⚡: ${socket.id} user just connected!`);
+
+  socket.on("send_message", (data) => {
+    socketIO.emit("receive_message", data);
+  });
+
+  // listens to new user
+  socket.on("send_newUser", (data) => {
+    // adds new user to list of users
+    users.push(data);
+    console.log('the users in index', users);
+    // send lists of users to client
+    socketIO.emit("receive_users", users);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("🔥: A user disconnected");
+
+    // updates users when a user disconnects
+    users = users.filter((user) => {
+      user.socketID !== socket.id;
     });
+    // send updated users to client
+    socketIO.emit("receive_users", users);
+    socket.disconnect()
+  });
 });
 //--- socket.io END ---//
 
-
-app.get('/api', (req, res) => {
+app.get("/api", (req, res) => {
   res.json({
-    message: 'Hello world',
+    message: "Hello world",
   });
 });
 

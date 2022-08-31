@@ -8,6 +8,11 @@ type Message = {
   socketID: string;
 };
 
+type User = {
+  userName: string;
+  socketID: string;
+};
+
 type ChatBodyProps = {
   messages: Message[];
 };

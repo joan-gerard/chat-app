@@ -19,11 +19,12 @@ const ChatPage: React.FC<SocketProp> = ({ socket }) => {
     });
   }, [socket, messages]);
 
+
   console.log("messages", messages);
 
   return (
     <div className="chat">
-      <ChatBar />
+      <ChatBar socket={socket} />
       <div className="chat__main">
         <ChatBody messages={messages} />
         <ChatFooter socket={socket} />
