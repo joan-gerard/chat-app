@@ -15,4 +15,5 @@ type User = {
 
 type ChatBodyProps = {
   messages: Message[];
+  lastMessageRef: any
 };

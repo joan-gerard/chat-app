@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const ChatBody: React.FC<ChatBodyProps> = ({ messages }) => {
+const ChatBody: React.FC<ChatBodyProps> = ({ messages, lastMessageRef }) => {
   const navigate = useNavigate();
 
   const handleLeaveChat = () => {
@@ -9,7 +9,7 @@ const ChatBody: React.FC<ChatBodyProps> = ({ messages }) => {
     navigate("/");
     window.location.reload();
   };
-
+  console.log("lastMessageRef", lastMessageRef);
   return (
     <>
       <header className="chat__mainHeader">
@@ -44,6 +44,7 @@ const ChatBody: React.FC<ChatBodyProps> = ({ messages }) => {
         <div className="message__status">
           <p>Someone is typing...</p>
         </div>
+        <div ref={lastMessageRef} />
       </div>
     </>
   );

@@ -15,8 +15,6 @@ const ChatBar: React.FC<SocketProp> = ({ socket }) => {
     });
   }, [socket, users]);
 
-  console.log("USERS", users);
-
   return (
     <div className="chat__sidebar">
       <h2>Open Chat</h2>
