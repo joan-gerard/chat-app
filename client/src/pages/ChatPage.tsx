@@ -14,13 +14,9 @@ const ChatPage: React.FC<SocketProp> = ({ socket }) => {
 
   useEffect(() => {
     socket.on("receive_message", (data: Message) => {
-      console.log("receive_message", data);
       setMessages([...messages, data]);
     });
   }, [socket, messages]);
-
-
-  console.log("messages", messages);
 
   return (
     <div className="chat">
