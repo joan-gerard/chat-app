@@ -11,6 +11,7 @@ type SocketProp = {
 
 const ChatPage: React.FC<SocketProp> = ({ socket }) => {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [typingStatus, setTypingStatus] = useState<string | null>(null);
   const lastMessageRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -24,12 +25,25 @@ const ChatPage: React.FC<SocketProp> = ({ socket }) => {
     lastMessageRef?.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  useEffect(() => {
+    socket.on("receive_typing", (data: string) => {
+      setTypingStatus(data);
+    });
+    socket.on("receive_isDoneTyping", () => {
+      setTypingStatus(null);
+    });
+  }, [socket]);
+
   return (
     <div className="chat">
       <ChatBar socket={socket} />
       <div className="chat__main">
-        <ChatBody messages={messages} lastMessageRef={lastMessageRef} />
-        <ChatFooter socket={socket} />
+        <ChatBody
+          messages={messages}
+          lastMessageRef={lastMessageRef}
+          typingStatus={typingStatus}
+        />
+        <ChatFooter socket={socket} setTypingStatus={setTypingStatus} />
       </div>
     </div>
   );

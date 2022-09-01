@@ -16,7 +16,7 @@ const socketIO = require("socket.io")(http, {
 
 let users = [];
 
-console.log('USERS state', users)
+console.log("USERS state", users);
 
 socketIO.on("connection", (socket) => {
   console.log(`⚡: ${socket.id} user just connected!`);
@@ -32,6 +32,16 @@ socketIO.on("connection", (socket) => {
     console.log("the users in index", users);
     // send lists of users to client
     socketIO.emit("receive_users", users);
+  });
+
+  socket.on("send_typing", (data) => {
+    console.log(data);
+    // send to all but yourself
+    socket.broadcast.emit("receive_typing", data)
+  });
+  socket.on("send_isDoneTyping", () => {
+    // send to all but yourself
+    socket.broadcast.emit("receive_isDoneTyping")
   });
 
   socket.on("disconnect", () => {
