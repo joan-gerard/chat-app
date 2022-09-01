@@ -10,7 +10,6 @@ const ChatBar: React.FC<SocketProp> = ({ socket }) => {
 
   useEffect(() => {
     socket.on("receive_users", (data) => {
-      console.log("receive_users", data);
       setUsers(data);
     });
   }, [socket, users]);

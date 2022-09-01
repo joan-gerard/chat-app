@@ -35,7 +35,6 @@ socketIO.on("connection", (socket) => {
   });
 
   socket.on("send_typing", (data) => {
-    console.log(data);
     // send to all but yourself
     socket.broadcast.emit("receive_typing", data)
   });

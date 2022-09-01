@@ -3,24 +3,18 @@ import { Socket } from "socket.io-client";
 
 type SocketProp = {
   socket: Socket;
-  setTypingStatus: any;
 };
 
-const ChatFooter: React.FC<SocketProp> = ({ socket, setTypingStatus }) => {
+const ChatFooter: React.FC<SocketProp> = ({ socket }) => {
   const [message, setMessage] = useState("");
 
   const handleTyping = () => {
-    console.log("is typing");
     socket.emit("send_typing", `${localStorage.getItem("userName")} is typing`);
   };
-  // const handleIsDoneTyping = () => {
-  //   console.log("I am done typing");
-  //   socket.emit("send_isDoneTyping")
-  // };
 
   const handleSendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     if (message.trim() && localStorage.getItem("userName")) {
       socket.emit("send_message", {
         text: message,
@@ -29,7 +23,7 @@ const ChatFooter: React.FC<SocketProp> = ({ socket, setTypingStatus }) => {
         socketID: socket.id,
       });
     }
-    socket.emit("send_isDoneTyping")
+    socket.emit("send_isDoneTyping");
     setMessage("");
   };
   return (
@@ -42,11 +36,6 @@ const ChatFooter: React.FC<SocketProp> = ({ socket, setTypingStatus }) => {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleTyping}
-          // onKeyUp={() =>
-          //   setTimeout(() => {
-          //     handleIsDoneTyping();
-          //   }, 5000)
-          // }
         />
         <button className="sendBtn">SEND</button>
       </form>

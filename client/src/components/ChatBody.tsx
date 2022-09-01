@@ -13,7 +13,6 @@ const ChatBody: React.FC<ChatBodyProps> = ({
     navigate("/");
     window.location.reload();
   };
-  console.log("typingStatus", typingStatus);
 
   return (
     <>

@@ -43,7 +43,7 @@ const ChatPage: React.FC<SocketProp> = ({ socket }) => {
           lastMessageRef={lastMessageRef}
           typingStatus={typingStatus}
         />
-        <ChatFooter socket={socket} setTypingStatus={setTypingStatus} />
+        <ChatFooter socket={socket} />
       </div>
     </div>
   );
