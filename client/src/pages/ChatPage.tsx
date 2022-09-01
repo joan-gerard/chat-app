@@ -18,6 +18,9 @@ const ChatPage: React.FC<SocketProp> = ({ socket }) => {
     socket.on("receive_message", (data: Message) => {
       setMessages([...messages, data]);
     });
+    socket.on("receive_enterChat", (data: Message) => {
+      setMessages([...messages, data]);
+    });
   }, [socket, messages]);
 
   useEffect(() => {

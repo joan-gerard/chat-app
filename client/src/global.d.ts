@@ -3,6 +3,7 @@ type Message = {
   name: string;
   id: string;
   socketID: string;
+  socketNotif: boolean
 };
 
 type User = {

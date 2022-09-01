@@ -21,6 +21,7 @@ const ChatFooter: React.FC<SocketProp> = ({ socket }) => {
         name: localStorage.getItem("userName"),
         id: `${socket.id}${Math.random()}`,
         socketID: socket.id,
+        socketNotif: false
       });
     }
     socket.emit("send_isDoneTyping");
@@ -32,7 +33,7 @@ const ChatFooter: React.FC<SocketProp> = ({ socket }) => {
         <input
           type="text"
           placeholder="Write message"
-          className="message"
+          className="message-input"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleTyping}
