@@ -1,6 +1,3 @@
-// interface Socket {
-//   socket: any;
-// }
 type Message = {
   text: string;
   name: string;
